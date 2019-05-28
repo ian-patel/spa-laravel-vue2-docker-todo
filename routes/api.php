@@ -30,6 +30,12 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
     });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Tasks
+Route::group(['middleware' => 'auth:api', 'prefix' => 'tasks'], function () {
+    // List all the tasks
+    Route::get('/', 'TaskController@index');
+    // Create task
+    Route::post('/create', 'TaskController@store');
+    // Update task
+    Route::post('/update/{id}', 'TaskController@update');
 });
