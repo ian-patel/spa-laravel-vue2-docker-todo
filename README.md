@@ -1,5 +1,7 @@
 # Dockerized Laravel & Vue.js TODO application
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1755c84b0cf41888a748430e3eff6d1)](https://app.codacy.com/app/ian-patel/spa-laravel5-vue2-todo?utm_source=github.com&utm_medium=referral&utm_content=ian-patel/spa-laravel5-vue2-todo&utm_campaign=Badge_Grade_Settings)
+
 Docker running Nginx, PHP, Composer and MySQL.
 
 ## Overview
