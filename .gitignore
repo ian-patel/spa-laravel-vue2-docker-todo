@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/sitemaps
+/public/report.html
 /vendor
 .env
 .phpunit.result.cache
