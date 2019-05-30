@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'tasks'], function () {
     Route::get('/', 'TaskController@index');
     // Create task
     Route::post('/create', 'TaskController@store');
-    // Update task
-    Route::post('/update/{id}', 'TaskController@update');
+    // Complete task
+    Route::post('/complete/{id}', 'TaskController@complete');
+    // Burndown Chart data
+    Route::get('/chart', 'TaskController@chart');
 });

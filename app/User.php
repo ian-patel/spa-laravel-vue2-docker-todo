@@ -61,4 +61,48 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Get Burndown Chart Data for the user
+     *
+     * @param integer $hours
+     * @param integer $interval
+     * @return array
+     */
+    public function getBurndownChartData(int $hours = 1, int $intervals = 10)
+    {
+        $labels = [];
+        $data = [];
+
+        $iteration = 0;
+        // Egger load all tasks, and filter in memory to optimise database connections
+        $tasks = $this->tasks()->get();
+        // Interval Minutes of x hours
+        $intervalMinutes = ($hours * 60) / $intervals;
+
+        do {
+            // Interval Time for iteration
+            $intervalTime = now()->subMinutes($intervalMinutes * $iteration);
+            // Filter tasks
+            $filtered = $tasks->filter(function ($task, $key) use ($intervalTime) {
+                // Task must created before interval time
+                return $task->created_at->lessThanOrEqualTo($intervalTime) and
+                    // Task not completed
+                    (
+                        $task->completed == false or
+                        // or Completed after intervalTime
+                        ($task->completed_at and $task->completed_at->greaterThan($intervalTime))
+                    );
+            });
+
+            $labels[] = $intervalTime->isoFormat('hh:mm');
+            $data[] = $filtered->count();
+            $iteration++;
+        } while ($iteration < $intervals);
+
+        return [
+            'labels' => array_reverse($labels),
+            'data' => array_reverse($data),
+        ];
+    }
 }
