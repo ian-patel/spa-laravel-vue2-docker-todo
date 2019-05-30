@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b92fb0f13fd440a1a50dd7cfcc2d27df)](https://www.codacy.com/app/ian-patel/spa-laravel5-vue2-todo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ian-patel/spa-laravel5-vue2-todo&amp;utm_campaign=Badge_Grade)
+
 # Dockerized Laravel & Vue.js TODO application
 
 Docker running Nginx, PHP, Composer and MySQL.
@@ -136,8 +138,9 @@ make tinker
 
 ```php
 host:     127.0.0.1
+port:     33063
 database: todo
-user:     who
+username: who
 password: what
 ```
 
