@@ -51,7 +51,7 @@ class LoginController extends Controller
         // Return the token
         return response()->json([
             'authenticated' => true,
-            'token' => compact('token'),
+            'token' => $token,
             'user' => $this->guard()->user(),
         ]);
     }
