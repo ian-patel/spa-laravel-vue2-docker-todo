@@ -1,4 +1,8 @@
+/* eslint-disable no-undef */
+/* eslint import/no-extraneous-dependencies: ["off"] */
+const path = require('path');
 const mix = require('laravel-mix');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +15,30 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'js/')
+  .sass('resources/sass/app.scss', 'css/')
+  .extract([
+    'vue',
+    'vuex',
+    'axios',
+    'lodash',
+    'element-ui',
+    'vue-router',
+  ])
+  .sourceMaps()
+  .setResourceRoot()
+  .webpackConfig({
+    resolve: {
+      alias: {
+        styles: path.resolve(__dirname, 'resources/sass'),
+        app: path.resolve(__dirname, 'resources/js'),
+      },
+    },
+    plugins: mix.inProduction() ? [
+      new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+    ] : [],
+  });
+
+if (mix.inProduction()) {
+  mix.version();
+}
